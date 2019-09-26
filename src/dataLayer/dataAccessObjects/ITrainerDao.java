@@ -1,6 +1,7 @@
 package dataLayer.dataAccessObjects;
 
 import businessObjects.ITrainer;
+import businessObjects.Trainer;
 import exceptions.NoNextTrainerFoundException;
 import exceptions.NoPreviousTrainerFoundException;
 import exceptions.NoTrainerFoundException;
@@ -8,10 +9,22 @@ import exceptions.NoTrainerFoundException;
 import java.util.List;
 
 public interface ITrainerDao {
-    ITrainer create();
+    default ITrainer create() {
+        return new Trainer();
+    }
 
+    /**
+     * Delete a Trainer from the datasource
+     *
+     * @param trainer The trainer to delete
+     */
     void delete(ITrainer trainer);
 
+    /**
+     * delete
+     * @return
+     * @throws NoTrainerFoundException
+     */
     ITrainer first() throws NoTrainerFoundException;
 
     ITrainer next() throws NoNextTrainerFoundException;

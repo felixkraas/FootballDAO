@@ -28,11 +28,6 @@ public class TrainerDaoSqlite implements ITrainerDao {
     }
 
     @Override
-    public ITrainer create() {
-        return null;
-    }
-
-    @Override
     public void delete(ITrainer trainer) {
         String sql = "DELETE FROM trainer WHERE id = ?;";
         PreparedStatement statement;
