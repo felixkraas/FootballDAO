@@ -6,7 +6,7 @@ public class SettingsManager {
     private PersistenceSettings persistenceSettings;
 
 
-    private void SettingsManager() {
+    private SettingsManager() {
 
     }
 

@@ -1,6 +1,7 @@
 package dataLayer;
 
 import dataLayer.dataAccessObjects.sqlite.DataLayerSqlite;
+import dataLayer.dataAccessObjects.xml.DataLayerXml;
 
 public class DataLayerManager {
 
@@ -8,12 +9,12 @@ public class DataLayerManager {
     private IDataLayer dataLayer;
 
     private DataLayerManager() {
-        switch ("sqlite") {
+        switch ("xml") {
             case "sqlite":
                 dataLayer = new DataLayerSqlite();
                 break;
             case "xml":
-                //TODO XML einfügen.
+                dataLayer = new DataLayerXml();
                 break;
             default:
                 dataLayer = null;
