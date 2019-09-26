@@ -11,7 +11,7 @@ public class Main {
         ITrainerDao dao = DataLayerManager.getInstance().getDataLayer().getTrainerDao();
         Trainer t = (Trainer) dao.create();
         //dao.save(t);
-        dao.select().forEach(trainer -> System.out.println(trainer.getName()));
+        dao.select().forEach(trainer -> System.out.println(trainer.getName() + " | " + trainer.getAlter()));
     }
 
 }

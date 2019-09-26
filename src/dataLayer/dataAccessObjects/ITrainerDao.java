@@ -27,9 +27,9 @@ public interface ITrainerDao {
      */
     ITrainer first() throws NoTrainerFoundException;
 
-    ITrainer next() throws NoNextTrainerFoundException;
+    ITrainer next(ITrainer trainer) throws NoNextTrainerFoundException;
 
-    ITrainer previous() throws NoPreviousTrainerFoundException;
+    ITrainer previous(ITrainer trainer) throws NoPreviousTrainerFoundException;
 
     ITrainer last() throws NoTrainerFoundException;
 

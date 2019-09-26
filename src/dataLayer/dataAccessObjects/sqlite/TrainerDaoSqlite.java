@@ -67,14 +67,14 @@ public class TrainerDaoSqlite implements ITrainerDao {
     }
 
     @Override
-    public ITrainer next() throws NoNextTrainerFoundException {
+    public ITrainer next(ITrainer trainer) throws NoNextTrainerFoundException {
         Trainer t = null;
         String sql = "SELECT * FROM trainer WHERE id > ? ORDER BY id ASC;";
         PreparedStatement statement;
         ResultSet resultSet;
         try {
             statement = conn.prepareStatement(sql);
-            statement.setInt(1, lastSelcted);
+            statement.setInt(trainer.getId(), lastSelcted);
             resultSet = statement.executeQuery();
             if (resultSet != null) {
                 resultSet.next();
@@ -94,14 +94,14 @@ public class TrainerDaoSqlite implements ITrainerDao {
     }
 
     @Override
-    public ITrainer previous() throws NoPreviousTrainerFoundException {
+    public ITrainer previous(ITrainer trainer) throws NoPreviousTrainerFoundException {
         Trainer t = null;
         String sql = "SELECT * FROM trainer WHERE id < ? ORDER BY id ASC;";
         PreparedStatement statement;
         ResultSet resultSet;
         try {
             statement = conn.prepareStatement(sql);
-            statement.setInt(1, lastSelcted);
+            statement.setInt(trainer.getId(), lastSelcted);
             resultSet = statement.executeQuery();
             if (resultSet != null) {
                 resultSet.next();
