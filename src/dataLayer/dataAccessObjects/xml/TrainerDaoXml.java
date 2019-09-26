@@ -14,6 +14,7 @@ public class TrainerDaoXml implements ITrainerDao {
     @Override
     public ITrainer create() {
         Trainer trainer = new Trainer();
+        trainer.setId(last().getId() + 1);
         return trainer;
     }
 
@@ -59,9 +60,8 @@ public class TrainerDaoXml implements ITrainerDao {
     @Override
     public ITrainer last() {
         List<ITrainer> trainers = select();
-        ITrainer trainer = new Trainer();
         if (trainers.size() > 0) {
-            trainer = trainers.get(trainers.size() - 1);
+            return trainers.get(trainers.size() - 1);
         }
         return null;
     }
