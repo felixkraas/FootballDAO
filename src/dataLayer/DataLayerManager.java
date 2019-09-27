@@ -9,7 +9,7 @@ public class DataLayerManager {
     private IDataLayer dataLayer;
 
     private DataLayerManager() {
-        switch ("xml") {
+        switch ("sqlite") {
             case "sqlite":
                 dataLayer = new DataLayerSqlite();
                 break;

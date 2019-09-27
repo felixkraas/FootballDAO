@@ -18,7 +18,7 @@ public interface ITrainerDao {
      *
      * @param trainer The trainer to delete
      */
-    void delete(ITrainer trainer);
+    void delete(ITrainer trainer) throws NoTrainerFoundException;
 
     /**
      * delete
