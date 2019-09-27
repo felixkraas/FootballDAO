@@ -41,7 +41,7 @@ public class MainFrame extends JFrame {
      */
     public MainFrame() {
         setDefaultCloseOperation(MainFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 485, 457);
+        setBounds(100, 100, 638, 456);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -67,12 +67,11 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     trainerDao.delete(trainer);
-                } catch (NoTrainerFoundException ex) {
-                    ex.printStackTrace();
-                }
-                try {
                     trainer = trainerDao.first();
+
+                    setupData();
                     updateTrainerData();
+                    updateTable();
                 } catch (NoTrainerFoundException ex) {
                     ex.printStackTrace();
                 }
@@ -107,9 +106,18 @@ public class MainFrame extends JFrame {
 
         JButton btnSearch = new JButton("Search");
         toolBar.add(btnSearch);
+        btnSearch.addActionListener((event) -> {
+            try {
+                trainer = trainerDao.select().stream().filter(
+                        t -> t.getId() == Integer.parseInt(txtSearch.getText())).findFirst().get();
+                updateTrainerData();
+            } catch (NoTrainerFoundException e) {
+                e.printStackTrace();
+            }
+        });
 
         JButton btnNext = new JButton("Next");
-        btnNext.setBounds(378, 388, 85, 23);
+        btnNext.setBounds(434, 388, 85, 23);
         contentPane.add(btnNext);
         btnNext.addActionListener((event) -> {
             try {
@@ -121,7 +129,7 @@ public class MainFrame extends JFrame {
         });
 
         JButton btnPrevious = new JButton("Previous");
-        btnPrevious.setBounds(293, 388, 85, 23);
+        btnPrevious.setBounds(349, 388, 85, 23);
         contentPane.add(btnPrevious);
         btnPrevious.addActionListener((event) -> {
             try {
@@ -133,7 +141,7 @@ public class MainFrame extends JFrame {
         });
 
         JButton btnLast = new JButton("Last");
-        btnLast.setBounds(90, 388, 85, 23);
+        btnLast.setBounds(145, 388, 85, 23);
         contentPane.add(btnLast);
         btnLast.addActionListener((event) -> {
             try {
@@ -145,7 +153,7 @@ public class MainFrame extends JFrame {
         });
 
         JButton btnFirst = new JButton("First");
-        btnFirst.setBounds(5, 388, 85, 23);
+        btnFirst.setBounds(60, 388, 85, 23);
         contentPane.add(btnFirst);
         btnFirst.addActionListener((event) -> {
             try {
@@ -159,25 +167,25 @@ public class MainFrame extends JFrame {
         JLabel lblId = new JLabel("Identification Number");
         lblId.setFont(new Font("Tahoma", Font.PLAIN, 12));
         lblId.setHorizontalAlignment(SwingConstants.LEFT);
-        lblId.setBounds(151, 132, 136, 26);
+        lblId.setBounds(304, 130, 136, 26);
         contentPane.add(lblId);
 
         JLabel lblName = new JLabel("Name");
         lblName.setHorizontalAlignment(SwingConstants.LEFT);
         lblName.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        lblName.setBounds(151, 169, 136, 26);
+        lblName.setBounds(304, 167, 136, 26);
         contentPane.add(lblName);
 
         JLabel lblAge = new JLabel("Age");
         lblAge.setHorizontalAlignment(SwingConstants.LEFT);
         lblAge.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        lblAge.setBounds(151, 206, 136, 26);
+        lblAge.setBounds(304, 204, 136, 26);
         contentPane.add(lblAge);
 
         JLabel lblExperience = new JLabel("Experience");
         lblExperience.setHorizontalAlignment(SwingConstants.LEFT);
         lblExperience.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        lblExperience.setBounds(151, 243, 136, 26);
+        lblExperience.setBounds(304, 241, 136, 26);
         contentPane.add(lblExperience);
 
         table = new JTable();
@@ -188,38 +196,38 @@ public class MainFrame extends JFrame {
 
         txtId = new JTextField();
         txtId.setEditable(false);
-        txtId.setBounds(279, 136, 170, 20);
+        txtId.setBounds(432, 134, 170, 20);
         contentPane.add(txtId);
         txtId.setColumns(10);
 
         txtName = new JTextField();
         txtName.setEditable(false);
         txtName.setColumns(10);
-        txtName.setBounds(279, 173, 170, 20);
+        txtName.setBounds(432, 171, 170, 20);
         contentPane.add(txtName);
 
         txtAge = new JTextField();
         txtAge.setEditable(false);
         txtAge.setColumns(10);
-        txtAge.setBounds(279, 210, 170, 20);
+        txtAge.setBounds(432, 208, 170, 20);
         contentPane.add(txtAge);
 
         txtExperience = new JTextField();
         txtExperience.setEditable(false);
         txtExperience.setColumns(10);
-        txtExperience.setBounds(279, 247, 170, 20);
+        txtExperience.setBounds(432, 245, 170, 20);
         contentPane.add(txtExperience);
 
         JButton btnSave = new JButton("Save");
 
         btnSave.setVisible(false);
-        btnSave.setBounds(378, 358, 85, 23);
+        btnSave.setBounds(434, 322, 85, 23);
         contentPane.add(btnSave);
 
         JButton btnCancel = new JButton("Cancel");
 
         btnCancel.setVisible(false);
-        btnCancel.setBounds(293, 358, 85, 23);
+        btnCancel.setBounds(349, 322, 85, 23);
         contentPane.add(btnCancel);
 
 
