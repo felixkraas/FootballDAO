@@ -2,6 +2,7 @@ package dataLayer;
 
 import dataLayer.dataAccessObjects.sqlite.DataLayerSqlite;
 import dataLayer.dataAccessObjects.xml.DataLayerXml;
+import settings.SettingsManager;
 
 public class DataLayerManager {
 
@@ -9,7 +10,7 @@ public class DataLayerManager {
     private IDataLayer dataLayer;
 
     private DataLayerManager() {
-        switch ("sqlite") {
+        switch (SettingsManager.getInstance().getPersistenceSettings().getPersistenceType()) {
             case "sqlite":
                 dataLayer = new DataLayerSqlite();
                 break;

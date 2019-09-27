@@ -15,7 +15,6 @@ public class TrainerDaoSqlite implements ITrainerDao {
     private final String CLASSNAME = "org.sqlite.JDBC";
     private String CONNECTION_STRING;
     private Connection conn;
-    private int lastSelcted = 0;
 
     public TrainerDaoSqlite() {
         try {
@@ -62,7 +61,6 @@ public class TrainerDaoSqlite implements ITrainerDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        lastSelcted = t.getId();
         return t;
     }
 
@@ -74,7 +72,7 @@ public class TrainerDaoSqlite implements ITrainerDao {
         ResultSet resultSet;
         try {
             statement = conn.prepareStatement(sql);
-            statement.setInt(trainer.getId(), lastSelcted);
+            statement.setInt(1, trainer.getId());
             resultSet = statement.executeQuery();
             if (resultSet != null) {
                 resultSet.next();
@@ -89,7 +87,6 @@ public class TrainerDaoSqlite implements ITrainerDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        lastSelcted = t.getId();
         return t;
     }
 
@@ -101,7 +98,7 @@ public class TrainerDaoSqlite implements ITrainerDao {
         ResultSet resultSet;
         try {
             statement = conn.prepareStatement(sql);
-            statement.setInt(trainer.getId(), lastSelcted);
+            statement.setInt(1, trainer.getId());
             resultSet = statement.executeQuery();
             if (resultSet != null) {
                 resultSet.next();
@@ -116,7 +113,6 @@ public class TrainerDaoSqlite implements ITrainerDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        lastSelcted = t.getId();
         return t;
     }
 
@@ -142,7 +138,6 @@ public class TrainerDaoSqlite implements ITrainerDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        lastSelcted = t.getId();
         return t;
     }
 
@@ -241,7 +236,6 @@ public class TrainerDaoSqlite implements ITrainerDao {
             e.printStackTrace();
             return null;
         }
-        lastSelcted = t.getId();
         return t;
     }
 }

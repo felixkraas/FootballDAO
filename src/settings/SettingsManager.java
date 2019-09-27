@@ -23,6 +23,10 @@ public class SettingsManager {
 
     }
 
+    public void setPersistenceSettings(PersistenceSettings settings) {
+        this.persistenceSettings = settings;
+    }
+
     private PersistenceSettings readPersistenceSettings() {
         return persistenceSettings;
 
