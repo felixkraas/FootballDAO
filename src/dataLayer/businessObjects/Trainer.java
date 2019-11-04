@@ -1,4 +1,6 @@
-package businessObjects;
+package dataLayer.businessObjects;
+
+import businessObjects.ITrainer;
 
 public class Trainer implements ITrainer {
 

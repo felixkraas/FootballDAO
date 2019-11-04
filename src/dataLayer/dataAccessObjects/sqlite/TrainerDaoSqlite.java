@@ -1,7 +1,7 @@
 package dataLayer.dataAccessObjects.sqlite;
 
 import businessObjects.ITrainer;
-import businessObjects.Trainer;
+import dataLayer.businessObjects.Trainer;
 import dataLayer.dataAccessObjects.ITrainerDao;
 import exceptions.NoNextTrainerFoundException;
 import exceptions.NoPreviousTrainerFoundException;
@@ -66,6 +66,13 @@ public class TrainerDaoSqlite implements ITrainerDao {
 
     @Override
     public ITrainer next(ITrainer trainer) throws NoNextTrainerFoundException {
+        if (trainer == null) {
+            try {
+                return first();
+            } catch (NoTrainerFoundException e) {
+                e.printStackTrace();
+            }
+        }
         Trainer t = null;
         String sql = "SELECT * FROM trainer WHERE id > ? ORDER BY id ASC;";
         PreparedStatement statement;
@@ -92,6 +99,13 @@ public class TrainerDaoSqlite implements ITrainerDao {
 
     @Override
     public ITrainer previous(ITrainer trainer) throws NoPreviousTrainerFoundException {
+        if (trainer == null) {
+            try {
+                return last();
+            } catch (NoTrainerFoundException e) {
+                e.printStackTrace();
+            }
+        }
         Trainer t = null;
         String sql = "SELECT * FROM trainer WHERE id < ? ORDER BY id ASC;";
         PreparedStatement statement;

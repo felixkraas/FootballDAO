@@ -1,7 +1,7 @@
 package dataLayer.dataAccessObjects;
 
 import businessObjects.ITrainer;
-import businessObjects.Trainer;
+import dataLayer.businessObjects.Trainer;
 import exceptions.NoNextTrainerFoundException;
 import exceptions.NoPreviousTrainerFoundException;
 import exceptions.NoTrainerFoundException;

@@ -22,12 +22,13 @@ public class MainFrame extends JFrame {
     private ITrainer trainer;
     private ArrayList<ITrainer> trainers;
     private ITrainerDao trainerDao;
+    private MainFrame frame;
 
     public void init() {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    MainFrame frame = new MainFrame();
+                    frame = new MainFrame();
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -73,6 +74,8 @@ public class MainFrame extends JFrame {
                     updateTrainerData();
                     updateTable();
                 } catch (NoTrainerFoundException ex) {
+                    JOptionPane.showMessageDialog(frame, "Fehler", ex.getLocalizedMessage(),
+                            JOptionPane.WARNING_MESSAGE);
                     ex.printStackTrace();
                 }
             }
@@ -109,9 +112,16 @@ public class MainFrame extends JFrame {
         btnSearch.addActionListener((event) -> {
             try {
                 trainer = trainerDao.select().stream().filter(
-                        t -> t.getId() == Integer.parseInt(txtSearch.getText())).findFirst().get();
+                        t -> t.getName().toLowerCase().contains(txtSearch.getText().toLowerCase())
+                ).findFirst().get();
+                if (trainer == null) {
+                    trainer = trainerDao.select().stream().filter(
+                            t -> t.getId() == Integer.parseInt(txtSearch.getText())
+                    ).findFirst().get();
+                }
                 updateTrainerData();
             } catch (NoTrainerFoundException e) {
+                JOptionPane.showMessageDialog(frame, "Fehler", e.getLocalizedMessage(), JOptionPane.WARNING_MESSAGE);
                 e.printStackTrace();
             }
         });
@@ -124,6 +134,7 @@ public class MainFrame extends JFrame {
                 trainer = trainerDao.next(trainer);
                 updateTrainerData();
             } catch (NoNextTrainerFoundException e) {
+                JOptionPane.showMessageDialog(frame, "Fehler", e.getLocalizedMessage(), JOptionPane.WARNING_MESSAGE);
                 e.printStackTrace();
             }
         });
@@ -136,6 +147,7 @@ public class MainFrame extends JFrame {
                 trainer = trainerDao.previous(trainer);
                 updateTrainerData();
             } catch (NoPreviousTrainerFoundException e) {
+                JOptionPane.showMessageDialog(frame, "Fehler", e.getLocalizedMessage(), JOptionPane.WARNING_MESSAGE);
                 e.printStackTrace();
             }
         });
@@ -160,6 +172,7 @@ public class MainFrame extends JFrame {
                 trainer = trainerDao.first();
                 updateTrainerData();
             } catch (NoTrainerFoundException e) {
+                JOptionPane.showMessageDialog(frame, "Fehler", e.getLocalizedMessage(), JOptionPane.WARNING_MESSAGE);
                 e.printStackTrace();
             }
         });

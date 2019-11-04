@@ -1,7 +1,7 @@
 package dataLayer.dataAccessObjects.xml;
 
 import businessObjects.ITrainer;
-import businessObjects.Trainer;
+import dataLayer.businessObjects.Trainer;
 import dataLayer.dataAccessObjects.ITrainerDao;
 import exceptions.NoNextTrainerFoundException;
 import exceptions.NoPreviousTrainerFoundException;
@@ -127,6 +127,13 @@ public class TrainerDaoXml implements ITrainerDao {
     @Override
     public ITrainer next(ITrainer trainer) throws NoNextTrainerFoundException {
         List<ITrainer> trainers = select();
+        if (trainer == null) {
+            try {
+                return first();
+            } catch (NoTrainerFoundException e) {
+                e.printStackTrace();
+            }
+        }
         if (trainers.stream().filter(o -> o.getId() == (trainer.getId())).findFirst().isPresent() &&
                 trainers.lastIndexOf(trainers.stream().filter(o -> o.getId() == (trainer.getId())).findFirst().get()) != trainers.size() - 1) {
             return trainers.get(trainers.lastIndexOf(trainers.stream().filter(o -> o.getId() == (trainer.getId())).findFirst().get()) + 1);
@@ -145,6 +152,13 @@ public class TrainerDaoXml implements ITrainerDao {
     @Override
     public ITrainer previous(ITrainer trainer) throws NoPreviousTrainerFoundException {
         List<ITrainer> trainers = select();
+        if (trainer == null) {
+            try {
+                return last();
+            } catch (NoTrainerFoundException e) {
+                e.printStackTrace();
+            }
+        }
         if (trainers.lastIndexOf(trainers.stream().filter(o -> o.getId() == (trainer.getId())).findFirst().get()) >= 1) {
             return trainers.get(trainers.lastIndexOf(trainers.stream().filter(o -> o.getId() == (trainer.getId())).findFirst().get()) - 1);
         } else {
